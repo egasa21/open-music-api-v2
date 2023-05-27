@@ -6,11 +6,15 @@
         "node": true
     },
     "extends": "airbnb-base",
-    "overrides": [
-    ],
+    "overrides": [],
     "parserOptions": {
         "ecmaVersion": "latest"
     },
     "rules": {
+        "indent": "off",
+        "object-curly-spacing": "off",
+        "require-jsdoc": "off",
+        "no-underscore-dangle": "off",
+        "no-console":"off"
     }
 }

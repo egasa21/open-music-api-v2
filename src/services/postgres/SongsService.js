@@ -8,7 +8,9 @@ class SongsService {
     this._pool = new Pool();
   }
 
-  async addSong({ albumId, title, year, genre, performer, duration }) {
+  async addSong({
+    albumId, title, year, genre, performer, duration,
+  }) {
     const id = `song-${nanoid(16)}`;
 
     const query = {
@@ -18,9 +20,7 @@ class SongsService {
 
     const { rows } = await this._pool.query(query);
 
-    if (!rows[0].id) {
-      throw new InvariantError('Failed to create song');
-    }
+    if (!rows[0].id) throw new InvariantError('Gagal membuat lagu');
 
     return rows[0].id;
   }
@@ -38,14 +38,14 @@ class SongsService {
     };
     const { rows, rowCount } = await this._pool.query(query);
 
-    if (!rowCount) {
-      throw new NotFoundError('Song is not found');
-    }
+    if (!rowCount) throw new NotFoundError('Lagu tidak ditemukan');
 
     return rows[0];
   }
 
-  async editSongById(id, { albumId, title, year, genre, performer, duration }) {
+  async editSongById(id, {
+    albumId, title, year, genre, performer, duration,
+  }) {
     const query = {
       text: 'UPDATE songs SET album_id = $1, title = $2, year = $3, genre = $4, performer = $5, duration = $6 WHERE id = $7 RETURNING id',
       values: [albumId, title, year, genre, performer, duration, id],
@@ -53,9 +53,7 @@ class SongsService {
 
     const { rowCount } = await this._pool.query(query);
 
-    if (!rowCount) {
-      throw new NotFoundError('Song is not found');
-    }
+    if (!rowCount) throw new NotFoundError('Lagu tidak ditemukan');
   }
 
   async deleteSongById(id) {
@@ -66,9 +64,7 @@ class SongsService {
 
     const { rowCount } = await this._pool.query(query);
 
-    if (!rowCount) {
-      throw new NotFoundError('Song is not found');
-    }
+    if (!rowCount) throw new NotFoundError('lagu tidak ditemukan');
   }
 }
 

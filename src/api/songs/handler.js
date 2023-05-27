@@ -10,8 +10,8 @@ class SongsHandler {
     const songId = await this._service.addSong(request.payload);
 
     const response = h.response({
-      status: "success",
-      message: "Song has been added",
+      status: 'success',
+      message: 'Lagu berhasil ditambahkan',
       data: {
         songId,
       },
@@ -26,19 +26,15 @@ class SongsHandler {
     let songs = await this._service.getSongs();
 
     if (title) {
-      songs = songs.filter((x) =>
-        x.title.toLowerCase().includes(title.toLowerCase())
-      );
+      songs = songs.filter((x) => x.title.toLowerCase().includes(title.toLowerCase()));
     }
 
     if (performer) {
-      songs = songs.filter((x) =>
-        x.performer.toLowerCase().includes(performer.toLowerCase())
-      );
+      songs = songs.filter((x) => x.performer.toLowerCase().includes(performer.toLowerCase()));
     }
 
     return {
-      status: "success",
+      status: 'success',
       data: {
         songs,
       },
@@ -49,7 +45,7 @@ class SongsHandler {
     const { id } = request.params;
     const song = await this._service.getSongById(id);
     return {
-      status: "success",
+      status: 'success',
       data: {
         song,
       },
@@ -63,8 +59,8 @@ class SongsHandler {
     await this._service.editSongById(id, request.payload);
 
     return {
-      status: "success",
-      message: "Song has been updated",
+      status: 'success',
+      message: 'Lagu berhasil diperbarui',
     };
   }
 
@@ -73,8 +69,8 @@ class SongsHandler {
     await this._service.deleteSongById(id);
 
     return {
-      status: "success",
-      message: "Song has been deleted",
+      status: 'success',
+      message: 'Lagu berhasil dihapus',
     };
   }
 }
